@@ -47,9 +47,8 @@ public class Generator {
         } else if (yn.equals("n")) {
             return false;
         } else {
-            checkYesOrNo();
+            return checkYesOrNo();
         }
-        return false;
     }
 
     private String generator(String password) {
@@ -85,34 +84,27 @@ public class Generator {
                         password = password.concat(String.valueOf(onlyBigLetters()));
                     }
                     case 12 -> {
-                        int digit = random.nextInt(2);
-
-                        if (digit == 0) {
-                            password = password.concat(String.valueOf(onlyDigits()));
-                        } else {
-                            password = password.concat(String.valueOf(onlySmallLetters()));
-                        }
+                        password = generateFrom(password, onlyDigits(),onlySmallLetters());
                     }
                     case 13 -> {
-                        int digit = random.nextInt(2);
-
-                        if (digit == 0) {
-                            password = password.concat(String.valueOf(onlyDigits()));
-                        } else {
-                            password = password.concat(String.valueOf(onlyBigLetters()));
-                        }
+                        password = generateFrom(password, onlyDigits(), onlyBigLetters());
                     }
                     case 23 -> {
-                        int digit = random.nextInt(2);
-
-                        if (digit == 0) {
-                            password = password.concat(String.valueOf(onlyBigLetters()));
-                        } else {
-                            password = password.concat(String.valueOf(onlySmallLetters()));
-                        }
+                        password = generateFrom(password, onlySmallLetters(), onlyBigLetters());
                     }
                 }
             }
+        }
+        return password;
+    }
+
+    private String generateFrom(String password, Object o1, Object o2) {
+        int digit = random.nextInt(2);
+
+        if (digit == 0) {
+            password = password.concat(String.valueOf(o1));
+        } else {
+            password = password.concat(String.valueOf(o2));
         }
         return password;
     }
