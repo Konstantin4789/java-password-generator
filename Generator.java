@@ -76,24 +76,40 @@ public class Generator {
             for (int i = 0; i < passwordLength; i++) {
                 switch (customMode) {
                     case 1 -> {
-                        password = onlyDigits(password);
+                        password = password.concat(String.valueOf(onlyDigits()));
                     }
                     case 2 -> {
-                        char x = (char) (random.nextInt(26) + 97);
-                        password = password.concat(String.valueOf(x));
+                        password = password.concat(String.valueOf(onlySmallLetters()));
                     }
                     case 3 -> {
-                        char y = (char) (random.nextInt(26) + 65);
-                        password = password.concat(String.valueOf(y));
+                        password = password.concat(String.valueOf(onlyBigLetters()));
                     }
                     case 12 -> {
-                        //todo
+                        int digit = random.nextInt(2);
+
+                        if (digit == 0) {
+                            password = password.concat(String.valueOf(onlyDigits()));
+                        } else {
+                            password = password.concat(String.valueOf(onlySmallLetters()));
+                        }
                     }
                     case 13 -> {
-                        //todo
+                        int digit = random.nextInt(2);
+
+                        if (digit == 0) {
+                            password = password.concat(String.valueOf(onlyDigits()));
+                        } else {
+                            password = password.concat(String.valueOf(onlyBigLetters()));
+                        }
                     }
                     case 23 -> {
-                        //todo доделать говноспособы генерации пароля
+                        int digit = random.nextInt(2);
+
+                        if (digit == 0) {
+                            password = password.concat(String.valueOf(onlyBigLetters()));
+                        } else {
+                            password = password.concat(String.valueOf(onlySmallLetters()));
+                        }
                     }
                 }
             }
@@ -101,8 +117,16 @@ public class Generator {
         return password;
     }
 
-    private String onlyDigits(String password) {
-        return password.concat(String.valueOf(random.nextInt(10)));
+    private int onlyDigits() {
+        return random.nextInt(10);
+    }
+
+    private char onlySmallLetters() {
+        return (char) (random.nextInt(26) + 97);
+    }
+
+    private char onlyBigLetters() {
+        return (char) (random.nextInt(26) + 65);
     }
 
     private int chooseCustomGeneration() {
